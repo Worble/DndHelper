@@ -1,0 +1,53 @@
+﻿@model DndDmWebApp.ViewModels.CharacterViewModels.CharacterEditViewModel
+<div class="row">
+    <h1>Edit Character</h1>
+</div>
+<form method="post">
+    <input type="hidden" asp-for="ReturnUrl" />
+    <input type="hidden" asp-for="CharacterModel.ID" />
+    <div class="form-group-lg">
+        <div class="row">
+            <div class="col-xs-12 col-md-6">
+                <label asp-for="CharacterModel.Name" class="txt-md-bd form-label"></label>
+                <input type="text" asp-for="CharacterModel.Name" class="form-control" />
+                <span asp-validation-for="CharacterModel.Name"></span>
+            </div>
+
+            <div class="col-xs-12 col-md-6">
+                <label asp-for="CharacterModel.Level" class="txt-md-bd form-label"></label>
+                <input type="number" asp-for="CharacterModel.Level" class="form-control" />
+                <span asp-validation-for="CharacterModel.Level"></span>
+            </div>
+        </div>
+
+        @*<div class="row">*@
+        <div class="col-xs-12">
+            <label asp-for="CharacterModel.Description" class="txt-md-bd form-label"></label>
+            <textarea asp-for="CharacterModel.Description" class="form-control"></textarea>
+            <span asp-validation-for="CharacterModel.Description"></span>
+        </div>
+        @*</div>*@
+
+        <div class="row">
+            <div class="col-xs-12 col-md-6">
+                <label asp-for="CharacterModel.Race" class="txt-md-bd form-label"></label>
+                <select asp-for="CharacterModel.RaceID" asp-items="@(new SelectList(Model.Races, "ID", "Name"))" class="form-control"></select>
+                <span asp-validation-for="CharacterModel.RaceID"></span>
+            </div>
+
+            <div class="col-xs-12 col-md-6">
+                <label asp-for="CharacterModel.Class" class="txt-md-bd form-label"></label>
+                <select asp-for="CharacterModel.ClassID" asp-items="@(new SelectList(Model.Classes, "ID", "Name"))" class="form-control"></select>
+                <span asp-validation-for="CharacterModel.ClassID"></span>
+            </div>
+        </div>
+
+        <label asp-for="CharacterModel.BaseStats" class="txt-md-bd"></label><a style="float:right" href="#">Add Another</a>
+        @{ int count = Model.CharacterModel.BaseStats.Count(); }
+        @Html.EditorFor(m => m.CharacterModel.BaseStats, new { AllBaseStats = Model.BaseStats, TotalCount = count })
+
+        <br />
+
+        <button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-menu-right pull-right"></span>Submit</button>
+    </div>
+</form>

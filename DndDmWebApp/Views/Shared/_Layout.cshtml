@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - DnD DM Helper</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-grid.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-reboot.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <header>
+        <div class="container-fluid">
+            <nav class="nav justify-content-center nav-pills">
+                <menulink class="nav-item" action-name="Index" controller-name="Game" menu-text="Games"></menulink>
+                <menulink class="nav-item" action-name="Index" controller-name="Character" menu-text="Characters"></menulink>
+                <menulink class="nav-item" action-name="Index" controller-name="Race" menu-text="Races"></menulink>
+                <menulink class="nav-item" action-name="Index" controller-name="Class" menu-text="Classes"></menulink>
+                <menulink class="nav-item" action-name="Index" controller-name="Spells" menu-text="Spells"></menulink>
+                <menulink class="nav-item" action-name="Logout" controller-name="User" menu-text="Logout"></menulink>
+            </nav>
+            <hr />
+        </div>
+    </header>
+    <div class="container">
+        @RenderBody()
+    </div>
+    <script src="~/lib/jquery/jquery-3.2.1.js"></script>
+    <script src="~/lib/turbolinks/turbolinks.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

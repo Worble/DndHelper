@@ -1,0 +1,32 @@
+﻿@model DndDmWebApp.ViewModels.RaceViewModels.RaceIndexViewModel
+<div class="row">
+    <h1>Races</h1>
+</div>
+<div class="row">
+    <p>Edit an existing race or <a asp-action="Create" asp-controller="Character">create a new race.</a></p>
+</div>
+<div class="row">
+    <table class="table">
+        <thead>
+            <tr>
+                <td>
+                    <label asp-for="Races.FirstOrDefault().Name"></label>
+                </td>
+                <td></td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Races)
+            {
+                <tr>
+                    <td>
+                        @item.Name
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-controller="Race">Edit</a> | <a asp-action="Delete", asp-controller="Race">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

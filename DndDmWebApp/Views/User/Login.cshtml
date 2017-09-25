@@ -1,0 +1,37 @@
+@model DndDmWebApp.ViewModels.UserLoginViewModel
+@{
+    ViewData["Title"] = "Login";
+    Layout = "_LayoutLogin";
+}
+
+<h2>Login</h2>
+
+<form method="post">
+    <div class="form-group-lg">
+        <div>
+            @Html.ValidationMessage("Invalid Login")
+        </div>
+
+        <label asp-for="EmailAddress" class="txt-md-bd form-label"></label>
+        <input type="text" asp-for="EmailAddress" class="form-control" />
+        <span asp-validation-for="EmailAddress"></span>
+        <br />
+
+        <label asp-for="Password" class="txt-md-bd form-label"></label>
+        <input type="password" asp-for="Password" class="form-control" autocomplete="off" />
+        <span asp-validation-for="Password"></span>
+        <div class="link"><a asp-area="" asp-controller="User" asp-action="PasswordReset">Forgotten your password?</a></div>
+        <br />
+
+        <input type="checkbox" asp-for="RememberMe" />
+        <span>&nbsp;Remember me?</span>
+
+        <input type="hidden" asp-for="ReturnUrl" />
+
+        <div>
+            <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-menu-right pull-right"></span>Sign in</button>
+        </div>
+        <div><a asp-controller="User" asp-action="Register">Don't have an account?</a></div>
+
+    </div>
+</form>

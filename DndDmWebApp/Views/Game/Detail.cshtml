@@ -1,0 +1,34 @@
+﻿@model DndDmWebApp.ViewModels.GameViewModels.GameDetailsViewModel
+<h1>Details</h1>
+<p>Name: @Model.Game.Name</p>
+<p>Description: @Model.Game.Description</p>
+
+<div style="display:grid;align-items: end;grid-template-columns: 1fr 1fr;">
+    <span style="font-size:xx-large">Characters:</span>
+    <span class="pull-right" style="justify-self: end;bottom: 0;">Click <a asp-action="AddCharacter" asp-controller="Game" asp-route-id="@Model.Game.ID">Here</a> to add a new character.</span>
+</div>
+
+@{var counter = 0; }
+@foreach (var item in Model.Game.Characters)
+{
+    if (counter % 4 == 0)
+    {
+        @:<div class="row">
+    }
+    <div class="col-sm-3">
+        <div class="card">
+            <img class="card-img-top" src="~/images/Image-Coming-Soon-Placeholder.png" alt="Card image cap" style="width:13em;margin:auto;">
+            <div class="card-block">
+                <h5 class="card-title">@item.Name</h5>
+                <p class="card-text">@item.Race.Name @item.Class.Name</p>
+                <p class="card-text">Level: @item.Level</p>
+                <a asp-action="CharacterDetail" asp-controller="Game" asp-route-id="@item.ID" class="btn btn-primary">View Details</a>
+            </div>
+        </div>
+    </div>
+    if (counter % 4 == 3 || (counter+1) == Model.Game.Characters.Count())
+    {
+        @:</div><br />
+    }
+    counter++;
+}

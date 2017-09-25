@@ -1,0 +1,23 @@
+﻿@model DndDmWebApp.ViewModels.GameViewModels.GameCreateViewModel
+<div class="row">
+    <h1>Create</h1>
+</div>
+    <form method="post">
+        <div class="form-group">
+                <div class="col-xs-12">
+                    <label asp-for="Name" class="txt-md-bd form-label"></label>
+                    <input type="text" asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name"></span>
+                </div>
+
+                <div class="col-xs-12">
+                    <label asp-for="Description" class="txt-md-bd form-label"></label>
+                    <textarea asp-for="Description" class="form-control"></textarea>
+                    <span asp-validation-for="Description"></span>
+                </div>
+
+            <div>
+                <button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-menu-right pull-right"></span>Create Game</button>
+            </div>
+        </div>
+    </form>

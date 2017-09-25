@@ -1,0 +1,69 @@
+﻿@model DndDmWebApp.ViewModels.GameViewModels.GameAddCharacterViewModel
+<div class="row">
+    <h1>Add Character</h1>
+</div>
+<div class="row">
+    <p>Choose an existing character or <a asp-action="Create" asp-controller="Character" asp-route-returnurl="@Url.Action("AddCharacter", "Game", new { id = Model.GameID })">create a new character.</a></p>
+</div>
+
+    <form method="post">
+        <input type="hidden" asp-for="GameID" />
+        <div class="row">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td>
+                            <label asp-for="Characters.FirstOrDefault().Name"></label>
+                        </td>
+                        <td>
+                            <label asp-for="Characters.FirstOrDefault().Level"></label>
+                        </td>
+                        <td>
+                            <label asp-for="Characters.FirstOrDefault().Description"></label>
+                        </td>
+                        <td>
+                            <label asp-for="Characters.FirstOrDefault().Race"></label>
+                        </td>
+                        <td>
+                            <label asp-for="Characters.FirstOrDefault().Class"></label>
+                        </td>
+                        <td>
+                            <label asp-for="Characters.FirstOrDefault().AddToGame"></label>
+                        </td>
+                        <td></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @Html.EditorFor(e => e.Characters, new { returnUrl = Url.Action("AddCharacter", "Game", new { id = Model.GameID }) })
+                </tbody>
+            </table>
+            <button type="submit" class="btn btn-primary">Add characters to game</button>
+        </div>
+</form>
+@section Scripts {
+    <script>
+        js_enabled = function (e) {
+            var confirmation = confirm("This will permamently remove the character!\nAre you sure?")
+            if (confirmation) {
+                var id = $(e).data("id");
+                var data = { "id" : id };
+                $.ajax({
+                    url: "@Url.Action("AsyncDelete", "Character")",
+                    data: data,
+                    method: "POST",
+                    success: function() {
+                        var eleToRemove = e.parentNode.parentNode;
+                        eleToRemove.parentNode.removeChild(eleToRemove);
+                    },
+                    error: function (xhr, textStatus, error) {
+                        console.log(xhr.statusText);
+                        console.log(textStatus);
+                        console.log(error);
+                    }
+                });
+            };
+
+            return false;
+        }
+    </script>
+}

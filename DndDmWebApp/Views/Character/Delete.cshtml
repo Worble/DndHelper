@@ -1,0 +1,60 @@
+﻿@model DndDmWebApp.ViewModels.CharacterViewModels.CharacterDeleteViewModel
+<div class="row">
+    <h1>Delete Character</h1>
+</div>
+<div class="row">
+    <div class="col-xs-12 col-sm-6">
+        <input type="hidden" asp-for="ReturnUrl" />
+        <label asp-for="CharacterModel.Name" class="txt-md-bd"></label>:
+        @Html.DisplayFor(m => m.CharacterModel.Name)
+    </div>
+    <div class="col-xs-12 col-sm-6">
+        <label asp-for="CharacterModel.Level" class="txt-md-bd form-label"></label>:
+        @Html.DisplayFor(m => m.CharacterModel.Name)
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12 col-sm-6">
+        <label asp-for="CharacterModel.Class" class="txt-md-bd form-label"></label>:
+        @Html.DisplayFor(m => m.CharacterModel.Class.Name)
+    </div>
+    <div class="col-xs-12 col-sm-6">
+        <label asp-for="CharacterModel.Race" class="txt-md-bd form-label"></label>:
+        @Html.DisplayFor(m => m.CharacterModel.Race.Name)
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12 col-sm-6">
+        <label asp-for="CharacterModel.Description" class="txt-md-bd form-label"></label>:
+        @Html.DisplayFor(m => m.CharacterModel.Description)
+    </div>
+</div>
+@{
+    var counter = 0;
+    var total = Model.CharacterModel.BaseStats.Count();
+}
+<label asp-for="CharacterModel.BaseStats" class="txt-md-bd form-label"></label>:
+
+@foreach (var item in Model.CharacterModel.BaseStats)
+{
+    if(counter % 2 == 0)
+    {
+        @:<div class="row">
+    }
+    <div class="col-xs-12 col-md-6">
+        @item.Name: @item.Value
+    </div>
+    if(counter % 2 != 0 || (counter+1) == total)
+    {
+        @:</div>
+    }
+    counter++;
+}
+<hr />
+<form method="post">
+    <input type="hidden" asp-for="CharacterModel.ID" />
+    <button class="btn btn-danger" type="submit"><span class="glyphicon glyphicon-menu-right pull-right"></span>Delete</button>
+</form>
+<div class="alert-danger" style="border-radius: 10px;border: solid 2px;">
+    <p style="margin: 10px;padding: 10px;font-size: large;">This will delete this character forever!</p>
+</div>

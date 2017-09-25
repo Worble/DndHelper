@@ -1,0 +1,26 @@
+﻿@model DndDmWebApp.ViewModels.GameViewModels.GameCharacterDetailViewModel
+
+<label asp-for="Character.Name" class="txt-md-bd form-label"></label>:
+@Html.DisplayFor(m => m.Character.Name)
+<br />
+<label asp-for="Character.Level" class="txt-md-bd form-label"></label>:
+@Html.DisplayFor(m => m.Character.Name)
+
+<br />
+<label asp-for="Character.Description" class="txt-md-bd form-label"></label>:
+@Html.DisplayFor(m => m.Character.Description)
+<br />
+
+<label asp-for="Character.Race" class="txt-md-bd form-label"></label>:
+@Html.DisplayFor(m => m.Character.Race.Name)
+<br />
+<label asp-for="Character.Class" class="txt-md-bd form-label"></label>:
+@Html.DisplayFor(m => m.Character.Class.Name)
+<br />
+<label asp-for="Character.BaseStats" class="txt-md-bd form-label"></label>
+@foreach (var item in Model.Character.BaseStats)
+{
+    <div>
+        @item.Name: @item.Value
+    </div>
+}

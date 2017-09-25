@@ -1,0 +1,27 @@
+﻿@model DndDmWebApp.ViewModels.Models.CharacterModel
+<tr>
+    <td>
+        @Model.Name
+    </td>
+    <td>
+        @Model.Level
+    </td>
+    <td>
+        @Model.Description
+    </td>
+    <td>
+        @Model.Race.Name
+    </td>
+    <td>
+        @Model.Class.Name
+    </td>
+    <td>
+        <input type="hidden" asp-for="ID"/>
+        <input type="checkbox" asp-for="AddToGame" class="form-control" />
+    </td>
+    <td>
+        <a asp-action="Edit" asp-controller="Character" asp-route-id="@Model.ID" asp-route-returnurl="@ViewData["ReturnUrl"]">Edit</a> 
+        &nbsp;|&nbsp;
+        <a data-id="@Model.ID" onclick="return js_enabled(this)" asp-action="Delete" asp-controller="Character" asp-route-id="@Model.ID" asp-route-returnurl="@ViewData["ReturnUrl"]">Delete</a>
+    </td>
+</tr>

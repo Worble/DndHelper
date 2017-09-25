@@ -1,0 +1,65 @@
+﻿@model DndDmWebApp.ViewModels.GameViewModels.GameIndexViewModel
+@{
+    ViewData["Title"] = "Home";
+}
+
+    <h1>Home</h1>
+
+    <p>Hello @CurrentUser.EmailAddress, click <a asp-action="Create" asp-controller="Game">Here</a> to make a new game.</p>
+
+<hr />
+
+    <p>Your current games:</p>
+<div class="row">
+    <table class="table">
+        <thead>
+            <tr>
+                <td>
+                    <label asp-for="Games.FirstOrDefault().ID"></label>
+                </td>
+                <td>
+                    <label asp-for="Games.FirstOrDefault().Name"></label>
+                </td>
+                <td>
+                    <label asp-for="Games.FirstOrDefault().Description"></label>
+                </td>
+                <td>
+                    Number of Players
+                </td>
+                <td>
+                    <label asp-for="Games.FirstOrDefault().LastEdited"></label>
+                </td>
+                <td></td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Games)
+            {
+
+                <tr>
+                    <td>
+                        @item.ID
+                    </td>
+                    <td>
+                        @item.Name
+                    </td>
+                    <td>
+                        @item.Description
+                    </td>
+                    <td>
+                        @item.Characters.Count()
+                    </td>
+                    <td>
+                        @item.LastEdited
+                    </td>
+                    <td>
+                        <a asp-action="Detail" asp-controller="Game" asp-route-id="@item.ID" class="btn btn-primary">Go to game</a>
+                        &nbsp;|&nbsp;
+                        <a asp-action="Delete" asp-controller="Game" asp-route-id="@item.ID" class="btn btn-danger">Delete game</a>
+                    </td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,21 @@
+﻿nav{
+    padding-top:10px;
+}
+
+.pull-right{
+    float:right;
+}
+
+.pull-left{
+    float:left;
+}
+
+.field-validation-error {
+    display: block;
+    background-color: #f7e0e0;
+    color: darkred;
+    border: solid darkred 1px;
+    border-radius: 5px;
+    width: 100%;
+    padding: 3px;
+}
