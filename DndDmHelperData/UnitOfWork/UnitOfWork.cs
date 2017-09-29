@@ -24,6 +24,9 @@ namespace DndDmHelperData.UnitOfWork
         private ITemplateCharacterRepository templateCharacterRepository;
         private IGameCharacterRepository gameCharacterRepository;
         private IBaseStatRepository baseStatRepository;
+        private INoteRepository noteRepository;
+        private INoteTypeRepository noteTypeRepository;
+        private ISkillRepository skillRepository;
 
         private bool disposed = false;
 
@@ -147,6 +150,12 @@ namespace DndDmHelperData.UnitOfWork
             }
         }
 
+        /// <summary>
+        /// Gets the base stat repository.
+        /// </summary>
+        /// <value>
+        /// The base stat repository.
+        /// </value>
         public IBaseStatRepository BaseStatRepository
         {
             get
@@ -156,6 +165,60 @@ namespace DndDmHelperData.UnitOfWork
                     this.baseStatRepository = new BaseStatRepository(this.context);
                 }
                 return this.baseStatRepository;
+            }
+        }
+
+        /// <summary>
+        /// Gets the note repository.
+        /// </summary>
+        /// <value>
+        /// The note repository.
+        /// </value>
+        public INoteRepository NoteRepository
+        {
+            get
+            {
+                if(this.noteRepository == null)
+                {
+                    this.noteRepository = new NoteRepository(this.context);
+                }
+                return this.noteRepository;
+            }
+        }
+
+        /// <summary>
+        /// Gets the note type repository.
+        /// </summary>
+        /// <value>
+        /// The note type repository.
+        /// </value>
+        public INoteTypeRepository NoteTypeRepository
+        {
+            get
+            {
+                if (this.noteTypeRepository == null)
+                {
+                    this.noteTypeRepository = new NoteTypeRepository(this.context);
+                }
+                return this.noteTypeRepository;
+            }
+        }
+
+        /// <summary>
+        /// Gets the skill repository.
+        /// </summary>
+        /// <value>
+        /// The skill repository.
+        /// </value>
+        public ISkillRepository SkillRepository
+        {
+            get
+            {
+                if (this.skillRepository == null)
+                {
+                    this.skillRepository = new SkillRepository(this.context);
+                }
+                return this.skillRepository;
             }
         }
 

@@ -100,6 +100,46 @@ namespace DndDmHelperData.Context
         /// </value>
         public virtual DbSet<TemplateCharacterBaseStat> TemplateCharacterBaseStats { get; set; }
 
+        /// <summary>
+        /// Gets or sets the note types.
+        /// </summary>
+        /// <value>
+        /// The note types.
+        /// </value>
+        public virtual DbSet<NoteType> NoteTypes { get; set; }
+
+        /// <summary>
+        /// Gets or sets the notes.
+        /// </summary>
+        /// <value>
+        /// The notes.
+        /// </value>
+        public virtual DbSet<Note> Notes { get; set; }
+
+        /// <summary>
+        /// Gets or sets the skills.
+        /// </summary>
+        /// <value>
+        /// The skills.
+        /// </value>
+        public virtual DbSet<Skill> Skills { get; set; }
+
+        /// <summary>
+        /// Gets or sets the template character skills.
+        /// </summary>
+        /// <value>
+        /// The template character skills.
+        /// </value>
+        public virtual DbSet<TemplateCharacterSkill> TemplateCharacterSkills { get; set; }
+
+        /// <summary>
+        /// Gets or sets the game character skills.
+        /// </summary>
+        /// <value>
+        /// The game character skills.
+        /// </value>
+        public virtual DbSet<GameCharacterSkill> GameCharacterSkills { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -126,6 +166,7 @@ namespace DndDmHelperData.Context
             modelBuilder.Entity<TemplateCharacter>().HasOne(e => e.Race);
             modelBuilder.Entity<TemplateCharacter>().HasOne(e => e.Class);
             modelBuilder.Entity<TemplateCharacter>().HasMany(e => e.BaseStats).WithOne(e => e.Character);
+            modelBuilder.Entity<TemplateCharacter>().HasMany(e => e.Skills).WithOne(e => e.Character);
 
             modelBuilder.Entity<GameCharacter>().Property(e => e.Name).IsRequired();
             modelBuilder.Entity<GameCharacter>().Property(e => e.Level).IsRequired();
@@ -135,6 +176,7 @@ namespace DndDmHelperData.Context
             modelBuilder.Entity<GameCharacter>().HasOne(e => e.Race);
             modelBuilder.Entity<GameCharacter>().HasOne(e => e.Class);
             modelBuilder.Entity<GameCharacter>().HasMany(e => e.BaseStats).WithOne(e => e.Character);
+            modelBuilder.Entity<GameCharacter>().HasMany(e => e.Skills).WithOne(e => e.Character);
 
             modelBuilder.Entity<Class>().Property(e => e.Name).IsRequired();
 
@@ -146,6 +188,22 @@ namespace DndDmHelperData.Context
 
             modelBuilder.Entity<TemplateCharacterBaseStat>().Property(e => e.Value).IsRequired();
 
+            modelBuilder.Entity<NoteType>().Property(e => e.Name).IsRequired();
+
+            modelBuilder.Entity<Note>().HasOne(e => e.NoteType);
+            modelBuilder.Entity<Note>().HasOne(e => e.Game);
+            modelBuilder.Entity<Note>().Property(e => e.Name).IsRequired();
+            modelBuilder.Entity<Note>().Property(e => e.Content).IsRequired();
+            modelBuilder.Entity<Note>().Property(e => e.NoteTypeID).IsRequired();
+            modelBuilder.Entity<Note>().Property(e => e.GameID).IsRequired();
+
+            modelBuilder.Entity<Skill>().Property(e => e.Name).IsRequired();
+
+            modelBuilder.Entity<TemplateCharacterSkill>().Property(e => e.Value).IsRequired();
+            modelBuilder.Entity<TemplateCharacterSkill>().Property(e => e.Proficient).IsRequired();
+
+            modelBuilder.Entity<GameCharacterSkill>().Property(e => e.Value).IsRequired();
+            modelBuilder.Entity<GameCharacterSkill>().Property(e => e.Proficient).IsRequired();
 
             base.OnModelCreating(modelBuilder);
         }

@@ -60,7 +60,7 @@ namespace DndDmWebApp.Controllers
         {
             work.GameRepository.Create(model.Name, model.Description, CurrentUser.ID);
             work.Save();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index");
         }
 
         /// <summary>
@@ -113,6 +113,12 @@ namespace DndDmWebApp.Controllers
             return RedirectToAction("Detail", new { id = model.GameID });
         }
 
+
+        /// <summary>
+        /// Displays the character detail page.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
         [HttpGet]
         public IActionResult CharacterDetail(int id)
         {
@@ -124,6 +130,35 @@ namespace DndDmWebApp.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Displays the delete page.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            var model = new GameDeleteViewModel()
+            {
+                Game = GameModel.GenerateGameModelFromDTO(work.GameRepository.GetGameDetails(id))
+            };
+
+            return View(model);
+        }
+
+        /// <summary>
+        /// Deletes the specified game.
+        /// </summary>
+        /// <param name="model">The model.</param>
+        /// <returns></returns>
+        [HttpPost, ValidateAntiForgeryToken]
+        public IActionResult Delete(GameDeleteViewModel model)
+        {
+            work.GameRepository.Delete(model.Game.ID);
+            work.Save();
+
+            return RedirectToAction("Index");
+        }
 
         #endregion
     }

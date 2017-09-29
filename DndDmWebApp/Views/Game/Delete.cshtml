@@ -1,0 +1,21 @@
+﻿@model DndDmWebApp.ViewModels.GameViewModels.GameDeleteViewModel
+<div class="row">
+    <h1>Delete Class</h1>
+</div>
+<div class="row">
+    <div class="col-xs-12 col-sm-6">
+        <label asp-for="Game.Name" class="txt-md-bd"></label>:
+        @Html.DisplayFor(m => m.Game.Name)
+    </div>
+    <div class="col-xs-12 col-sm-6">
+        <label asp-for="Game.Description" class="txt-md-bd"></label>:
+        @Html.DisplayFor(m => m.Game.Description)
+    </div>
+</div>
+<form method="post">
+    <input type="hidden" asp-for="Game.ID" />
+    <button class="btn btn-danger" type="submit"><span class="glyphicon glyphicon-menu-right pull-right"></span>Delete</button>
+</form>
+<div class="alert-danger" style="border-radius: 10px;border: solid 2px;">
+    <p style="margin: 10px;padding: 10px;font-size: large;">This will delete this game forever!</p>
+</div>

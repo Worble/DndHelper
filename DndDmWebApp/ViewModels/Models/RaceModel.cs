@@ -53,6 +53,20 @@ namespace DndDmWebApp.ViewModels.Models
                 LastEdited = race.LastEdited
             };
         }
+
+        /// <summary>
+        /// Generates the race dto from model.
+        /// </summary>
+        /// <param name="race">The race.</param>
+        /// <returns></returns>
+        internal static RaceDTO GenerateRaceDTOFromModel(RaceModel race)
+        {
+            return new RaceDTO()
+            {
+                ID = race.ID,
+                Name = race.Name
+            };
+        }
         #endregion
 
     }

@@ -9,14 +9,6 @@ namespace DndDmWebApp.ViewModels.CharacterViewModels
     public class CharacterCreateViewModel
     {
         /// <summary>
-        /// Gets or sets the redirect.
-        /// </summary>
-        /// <value>
-        /// The redirect.
-        /// </value>
-        public string ReturnUrl { get; set; }
-
-        /// <summary>
         /// Gets or sets the character model.
         /// </summary>
         /// <value>
@@ -30,7 +22,7 @@ namespace DndDmWebApp.ViewModels.CharacterViewModels
         /// <value>
         /// The races.
         /// </value>
-        public List<RaceModel> Races { get; set; }
+        public IEnumerable<RaceModel> Races { get; set; }
 
         /// <summary>
         /// Gets or sets the classes.
@@ -38,7 +30,7 @@ namespace DndDmWebApp.ViewModels.CharacterViewModels
         /// <value>
         /// The classes.
         /// </value>
-        public List<ClassModel> Classes { get; set; }
+        public IEnumerable<ClassModel> Classes { get; set; }
 
         /// <summary>
         /// Gets or sets the base stats.
@@ -46,6 +38,22 @@ namespace DndDmWebApp.ViewModels.CharacterViewModels
         /// <value>
         /// The base stats.
         /// </value>
-        public List<BaseStatModel> BaseStats { get; set; }
+        public IEnumerable<BaseStatModel> BaseStats { get; set; }
+
+        /// <summary>
+        /// Gets or sets the skills.
+        /// </summary>
+        /// <value>
+        /// The skills.
+        /// </value>
+        public IEnumerable<SkillModel> Skills { get; set; }
+
+        /// <summary>
+        /// Gets or sets the game identifier.
+        /// </summary>
+        /// <value>
+        /// The game identifier.
+        /// </value>
+        public int? GameID { get; set; }
     }
 }

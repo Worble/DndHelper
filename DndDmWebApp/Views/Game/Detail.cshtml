@@ -1,8 +1,9 @@
 ﻿@model DndDmWebApp.ViewModels.GameViewModels.GameDetailsViewModel
-<h1>Details</h1>
-<p>Name: @Model.Game.Name</p>
-<p>Description: @Model.Game.Description</p>
-
+<h1>@Model.Game.Name</h1>
+<p>@Model.Game.Description</p>
+<div>
+    <a asp-action="Index" asp-controller="Note" asp-route-gameID="@Model.Game.ID">Notes</a>
+</div>
 <div style="display:grid;align-items: end;grid-template-columns: 1fr 1fr;">
     <span style="font-size:xx-large">Characters:</span>
     <span class="pull-right" style="justify-self: end;bottom: 0;">Click <a asp-action="AddCharacter" asp-controller="Game" asp-route-id="@Model.Game.ID">Here</a> to add a new character.</span>

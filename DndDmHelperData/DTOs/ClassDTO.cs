@@ -45,7 +45,12 @@ namespace DndDmHelperData.DTOs
         /// <returns></returns>
         internal static ClassDTO CreateDTOFromClass(Class @class)
         {
-            return new ClassDTO() { ID = @class.ID, Name = @class.Name, LastEdited = @class.EditedDate ?? @class.CreatedDate };
+            return new ClassDTO()
+            {
+                ID = @class.ID,
+                Name = @class.Name,
+                LastEdited = @class.EditedDate ?? @class.CreatedDate
+            };
         }
 
         #endregion

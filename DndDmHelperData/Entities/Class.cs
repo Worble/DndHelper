@@ -4,6 +4,7 @@ using System.Text;
 using DndDmHelperData.Context;
 using DndDmHelperData.DTOs;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace DndDmHelperData.Entities
 {
@@ -30,7 +31,6 @@ namespace DndDmHelperData.Entities
         /// </summary>
         /// <param name="context">The context.</param>
         /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
         internal static IEnumerable<ClassDTO> GetAll(DndDmHelperContext context)
         {
             return context.Classes
@@ -44,6 +44,53 @@ namespace DndDmHelperData.Entities
         internal static void Add(DndDmHelperContext context, ClassDTO @class)
         {
             context.Classes.Add(new Class() { Name = @class.Name });
+        }
+
+        /// <summary>
+        /// Creates the specified class.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="classDTO">The class dto.</param>
+        internal static void Create(DndDmHelperContext context, ClassDTO classDTO)
+        {
+            context.Classes.Add(new Class() { Name = classDTO.Name });
+        }
+
+        /// <summary>
+        /// Gets the dto.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
+        internal static ClassDTO GetDTO(DndDmHelperContext context, int id)
+        {
+            return context.Classes
+                .Select(e => ClassDTO.CreateDTOFromClass(e))
+                .FirstOrDefault(e => e.ID == id);
+        }
+
+        /// <summary>
+        /// Deletes the specified class.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="id">The class id.</param>
+        internal static void Delete(DndDmHelperContext context, int id)
+        {
+            context.Classes.Remove(context.Classes.Find(id));
+        }
+
+        /// <summary>
+        /// Edits the specified class.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="classDTO">The class dto.</param>
+        internal static void Update(DndDmHelperContext context, ClassDTO classDTO)
+        {
+            var classToUpdate = context.Classes.Find(classDTO.ID);
+            classToUpdate.Name = classDTO.Name;
+
+            context.Attach(classToUpdate);
+            context.Entry(classToUpdate).State = EntityState.Modified;
         }
 
         #endregion

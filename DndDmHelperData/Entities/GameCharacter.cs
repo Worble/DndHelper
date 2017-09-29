@@ -94,6 +94,14 @@ namespace DndDmHelperData.Entities
         /// The base stats.
         /// </value>
         public virtual ICollection<GameCharacterBaseStat> BaseStats { get; set; }
+
+        /// <summary>
+        /// Gets or sets the skills.
+        /// </summary>
+        /// <value>
+        /// The skills.
+        /// </value>
+        public ICollection<GameCharacterSkill> Skills { get; set; }
         #endregion
 
         #region data access

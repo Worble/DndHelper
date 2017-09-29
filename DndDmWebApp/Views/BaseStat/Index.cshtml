@@ -1,0 +1,32 @@
+﻿@model DndDmWebApp.ViewModels.BaseStatViewModels.BaseStatIndexViewModel
+<div class="row">
+    <h1>Base Stats</h1>
+</div>
+<div class="row">
+    <p>Edit an existing stat or <a asp-action="Create" asp-controller="Class">create a new stat.</a></p>
+</div>
+<div class="row">
+    <table class="table">
+        <thead>
+            <tr>
+                <td>
+                    <label asp-for="BaseStats.FirstOrDefault().Name"></label>
+                </td>
+                <td></td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.BaseStats)
+            {
+                <tr>
+                    <td>
+                        @item.Name
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-controller="Class" asp-route-id="@item.ID">Edit</a> | <a asp-action="Delete" , asp-controller="Class" asp-route-id="@item.ID">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

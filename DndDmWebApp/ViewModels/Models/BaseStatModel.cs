@@ -41,6 +41,14 @@ namespace DndDmWebApp.ViewModels.Models
         /// </value>
         public bool Default { get; set; }
 
+        /// <summary>
+        /// Gets or sets the time last edited.
+        /// </summary>
+        /// <value>
+        /// The time last edited.
+        /// </value>
+        public DateTime LastEdited { get; set; }
+
         #endregion
 
         #region methods
@@ -52,7 +60,8 @@ namespace DndDmWebApp.ViewModels.Models
                 ID = baseStat.ID,
                 Name = baseStat.Name,
                 Value = baseStat.Value,
-                Default = baseStat.Default
+                Default = baseStat.Default,
+                LastEdited = baseStat.LastEdited
             };
         }
 

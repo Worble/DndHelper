@@ -19,3 +19,12 @@
     width: 100%;
     padding: 3px;
 }
+
+.table-no-wrap{
+    white-space: nowrap;
+}
+
+.small-bold-text{
+    font-size: x-small;
+    font-weight: bold;
+}

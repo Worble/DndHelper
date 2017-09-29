@@ -15,6 +15,7 @@ using DndDmHelperData.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.Routing;
 
 namespace DndDmWebApp
 {
@@ -91,6 +92,8 @@ namespace DndDmWebApp
                 app.UseExceptionHandler("/error");
             }
 
+            app.UseStatusCodePagesWithReExecute("/error/{0}");
+
             app.UseSession();
 
             using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
@@ -109,9 +112,52 @@ namespace DndDmWebApp
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
+                    name: "notes",
+                    template: "game/{gameID}/notes/{action}/{id?}",
+                    defaults: new { controller = "Note", action = "Index" });
+
+                routes.MapRoute(
+                    name: "game_create_character",
+                    template: "game/{gameID}/addcharacter/{action?}/{id?}",
+                    defaults: new { controller = "Character" });
+
+                routes.MapRoute(
+                    name: "game_create",
+                    template: "game/create",
+                    defaults: new { controller = "Game", action = "Create" });
+
+                routes.MapRoute(
+                    name: "game_index",
+                    template: "game",
+                    defaults: new { controller = "Game", action = "Index" });
+
+                routes.MapRoute(
+                    name: "game",
+                    template: "game/{id?}/{action?}",
+                    defaults: new { controller = "Game" , action="Detail" });
+
+                routes.MapRoute(
                     name: "default",
-                    template: "{controller=Game}/{action=Index}/{id?}");
+                    template: "{controller}/{action}/{id?}",
+                    defaults: new { controller = "Game", action = "Index"},
+                    constraints: new { controller = new NotEqual("Note") });
             });
         }
     }
+
+    public class NotEqual : IRouteConstraint
+    {
+        private string _match = String.Empty;
+
+        public NotEqual(string match)
+        {
+            _match = match;
+        }
+
+        public bool Match(HttpContext httpContext, IRouter route, string parameterName, RouteValueDictionary values, RouteDirection routeDirection)
+        {
+            return String.Compare(values[parameterName].ToString(), _match, true) != 0;
+        }
+    }
 }
+

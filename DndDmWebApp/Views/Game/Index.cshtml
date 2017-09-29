@@ -14,10 +14,10 @@
     <table class="table">
         <thead>
             <tr>
-                <td>
+                <td class="table-no-wrap">
                     <label asp-for="Games.FirstOrDefault().ID"></label>
                 </td>
-                <td>
+                <td class="table-no-wrap">
                     <label asp-for="Games.FirstOrDefault().Name"></label>
                 </td>
                 <td>
@@ -26,7 +26,7 @@
                 <td>
                     Number of Players
                 </td>
-                <td>
+                <td class="table-no-wrap">
                     <label asp-for="Games.FirstOrDefault().LastEdited"></label>
                 </td>
                 <td></td>
@@ -37,19 +37,19 @@
             {
 
                 <tr>
-                    <td>
+                    <td class="table-no-wrap">
                         @item.ID
                     </td>
-                    <td>
+                    <td class="table-no-wrap">
                         @item.Name
                     </td>
                     <td>
                         @item.Description
                     </td>
-                    <td>
+                    <td class="table-no-wrap">
                         @item.Characters.Count()
                     </td>
-                    <td>
+                    <td class="table-no-wrap">
                         @item.LastEdited
                     </td>
                     <td>

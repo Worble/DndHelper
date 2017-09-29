@@ -1,0 +1,17 @@
+﻿@model DndDmWebApp.ViewModels.RaceViewModels.RaceCreateViewModel
+<div class="row">
+    <h1>Create Race</h1>
+</div>
+<form method="post">
+    <div class="form-group-lg">
+        <div class="row">
+            <div class="col-xs-12 col-md-6">
+                <label asp-for="Race.Name" class="txt-md-bd form-label"></label>
+                <input type="text" asp-for="Race.Name" class="form-control" />
+                <span asp-validation-for="Race.Name"></span>
+            </div>
+        </div>
+        <br />
+        <button name="submit" value="submit" class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-menu-right pull-right"></span>Create</button>
+    </div>
+</form>

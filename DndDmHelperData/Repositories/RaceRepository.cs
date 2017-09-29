@@ -34,12 +34,47 @@ namespace DndDmHelperData.Repositories
         /// Gets all races.
         /// </summary>
         /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
         public IEnumerable<RaceDTO> GetAll()
         {
             return Race.GetAll(context);
         }
 
+        /// <summary>
+        /// Gets the dto.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
+        public RaceDTO GetDTO(int id)
+        {
+            return Race.GetDTO(context, id);
+        }
+
+        /// <summary>
+        /// Updates the specified race.
+        /// </summary>
+        /// <param name="Race">The race.</param>
+        public void Update(RaceDTO race)
+        {
+            Race.Update(context, race);
+        }
+
+        /// <summary>
+        /// Creates the specified race dto.
+        /// </summary>
+        /// <param name="raceDTO">The race dto.</param>
+        public void Create(RaceDTO raceDTO)
+        {
+            Race.Create(context, raceDTO);
+        }
+
+        /// <summary>
+        /// Deletes the specified race.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        public void Delete(int id)
+        {
+            Race.Delete(context, id);
+        }
 
         #endregion
     }

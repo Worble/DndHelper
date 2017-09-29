@@ -1,50 +1,152 @@
 ﻿@model DndDmWebApp.ViewModels.CharacterViewModels.CharacterCreateViewModel
 <div class="row">
-    <h1>Create Character</h1>
+    <h1 style="margin:auto;">Create Character</h1>
 </div>
-<form method="post">
-    <input type="hidden" asp-for="ReturnUrl" />
-    <div class="form-group-lg">
-        <div class="row">
-            <div class="col-xs-12 col-md-6">
-                <label asp-for="CharacterModel.Name" class="txt-md-bd form-label"></label>
-                <input type="text" asp-for="CharacterModel.Name" class="form-control" />
-                <span asp-validation-for="CharacterModel.Name"></span>
-            </div>
+<br />
+<form method="post" class="row">
+    <div class="wrapper">
+        <div class="one">
+            <button name="submit" value="statadd" type="submit" class="float-right btn btn-success small-bold-text">Add Another</button>
+            <label asp-for="CharacterModel.BaseStats" class="txt-md-bd"></label>
+            @Html.EditorFor(m => m.CharacterModel.BaseStats, new { AllBaseStats = Model.BaseStats })
+        </div>
+        <div class="two">
+            <label class="txt-md-bd form-label">Passive Perception</label>
+            <input type="number" class="form-control" />
+        </div>
+        <div class="three">
+            <div class="row">
+                <div class="col-xs-12 col-md-6">
+                    <label asp-for="CharacterModel.Name" class="txt-md-bd form-label"></label>
+                    <input type="text" asp-for="CharacterModel.Name" class="form-control" />
+                    <span asp-validation-for="CharacterModel.Name"></span>
+                </div>
 
-            <div class="col-xs-12 col-md-6">
-                <label asp-for="CharacterModel.Level" class="txt-md-bd form-label"></label>
-                <input type="number" asp-for="CharacterModel.Level" class="form-control" />
-                <span asp-validation-for="CharacterModel.Level"></span>
+                <div class="col-xs-12 col-md-6">
+                    <label asp-for="CharacterModel.Level" class="txt-md-bd form-label"></label>
+                    <input type="number" asp-for="CharacterModel.Level" class="form-control" />
+                    <span asp-validation-for="CharacterModel.Level"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-md-6">
+                    <label asp-for="CharacterModel.Race" class="txt-md-bd form-label"></label>
+                    <select asp-for="CharacterModel.RaceID" asp-items="@(new SelectList(Model.Races, "ID", "Name"))" class="form-control"></select>
+                    <span asp-validation-for="CharacterModel.RaceID"></span>
+                </div>
+
+                <div class="col-xs-12 col-md-6">
+                    <label asp-for="CharacterModel.Class" class="txt-md-bd form-label"></label>
+                    <select asp-for="CharacterModel.ClassID" asp-items="@(new SelectList(Model.Classes, "ID", "Name"))" class="form-control"></select>
+                    <span asp-validation-for="CharacterModel.ClassID"></span>
+                </div>
             </div>
         </div>
-
-        <div class="col-xs-12">
-            <label asp-for="CharacterModel.Description" class="txt-md-bd form-label"></label>
-            <textarea asp-for="CharacterModel.Description" class="form-control"></textarea>
-            <span asp-validation-for="CharacterModel.Description"></span>
+        <div class="four">Saving Throws</div>
+        <div class="five">
+            <button name="submit" value="skilladd" type="submit" class="float-right btn btn-success small-bold-text">Add Another</button>
+            <label asp-for="CharacterModel.Skills" class="txt-md-bd"></label>
+            @Html.EditorFor(m => m.CharacterModel.Skills, new { AllSkills = Model.Skills })
         </div>
-
-        <div class="row">
-            <div class="col-xs-12 col-md-6">
-                <label asp-for="CharacterModel.Race" class="txt-md-bd form-label"></label>
-                <select asp-for="CharacterModel.RaceID" asp-items="@(new SelectList(Model.Races, "ID", "Name"))" class="form-control"></select>
-                <span asp-validation-for="CharacterModel.RaceID"></span>
-            </div>
-
-            <div class="col-xs-12 col-md-6">
-                <label asp-for="CharacterModel.Class" class="txt-md-bd form-label"></label>
-                <select asp-for="CharacterModel.ClassID" asp-items="@(new SelectList(Model.Classes, "ID", "Name"))" class="form-control"></select>
-                <span asp-validation-for="CharacterModel.ClassID"></span>
-            </div>
+        <div class="six">Health and Hit Dice</div>
+        <div class="seven">Weapons</div>
+        <div class="eight">Personality</div>
+        <div class="nine">Misc</div>
+        <div class="ten">Equipment and Items</div>
+        <div class="eleven">Traits</div>
+        <div class="twelve">
+            <button name="submit" value="submit" class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-menu-right pull-right"></span>Create</button>
         </div>
-
-        <label asp-for="CharacterModel.BaseStats" class="txt-md-bd"></label><button name="submit" value="add" type="submit" style="float:right" href="#">Add Another</button>
-        @{ int count = Model.CharacterModel.BaseStats.Count(); }
-        @Html.EditorFor(m => m.CharacterModel.BaseStats, new { AllBaseStats = Model.BaseStats, TotalCount = count })
-
-        <br />
-        <button name="submit" value="submit" class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-menu-right pull-right"></span>Create</button>
-
     </div>
 </form>
+
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    .wrapper {
+        margin: 0 auto;
+        width: 100%;
+        background-color: #f6ede3;
+        border: 2px solid #7d6e5a;
+        border-radius: 10px;
+    }
+
+        .wrapper > div {
+            padding: 1em;
+            border: 2px solid black;
+            border-radius: 5px;
+        }
+
+    .wrapper {
+        display: grid;
+        grid-template-columns: 20% 25% 25% 25%; /*5em repeat(3, 1fr);*/
+        grid-gap: 10px;
+        grid-auto-rows: minmax(100px, auto);
+    }
+
+    .one {
+        grid-column: 1;
+        grid-row: 2 / 5;
+    }
+
+    .two {
+        grid-column: 1;
+        grid-row: 5;
+    }
+
+    .three {
+        grid-column: 2 / 5;
+        grid-row: 1;
+    }
+
+    .four {
+        grid-column: 2;
+        grid-row: 2 / 4
+    }
+
+    .five {
+        grid-column: 2;
+        grid-row: 4 / 6;
+    }
+
+    .six {
+        grid-column: 3;
+        grid-row: 2 / 4;
+    }
+
+    .seven {
+        grid-column: 3;
+        grid-row: 4 / 6;
+    }
+
+    .eight {
+        grid-column: 4;
+        grid-row: 2 / 4;
+    }
+
+    .nine {
+        grid-column: 1 /3;
+        grid-row: 6 / 8;
+    }
+
+    .ten {
+        grid-column: 3;
+        grid-row: 6/8;
+    }
+
+    .eleven {
+        grid-column: 4;
+        grid-row: 4/8;
+    }
+
+    .twelve{
+        grid-column: 4;
+        grid-row:8;
+        justify-self:end;
+        border:none!important;
+        border:unset!important;
+    }
+</style>

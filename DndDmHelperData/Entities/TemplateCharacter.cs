@@ -79,6 +79,14 @@ namespace DndDmHelperData.Entities
         /// </value>
         public ICollection<TemplateCharacterBaseStat> BaseStats { get; set; }
 
+        /// <summary>
+        /// Gets or sets the skills.
+        /// </summary>
+        /// <value>
+        /// The skills.
+        /// </value>
+        public ICollection<TemplateCharacterSkill> Skills { get; set; }
+
         #endregion
 
         #region data access
@@ -120,6 +128,7 @@ namespace DndDmHelperData.Entities
             character.Level = characterDTO.Level;
             character.ClassID = characterDTO.Class.ID;
             character.RaceID = characterDTO.Race.ID;
+            character.BaseStats = BaseStatDTO.Generate
 
             context.Attach(character);
             context.Entry(character).State = EntityState.Modified;

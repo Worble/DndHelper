@@ -1,0 +1,21 @@
+﻿@model DndDmWebApp.ViewModels.RaceViewModels.RaceEditViewModel
+<div class="row">
+    <h1>Edit Race</h1>
+</div>
+<form method="post">
+    <div class="form-group-lg">
+        <input type="hidden" asp-for="Race.ID" />
+        <div class="row">
+            <div class="col-xs-12 col-md-6">
+                <label asp-for="Race.Name" class="txt-md-bd form-label"></label>
+                <input type="text" asp-for="Race.Name" class="form-control" />
+                <span asp-validation-for="Race.Name"></span>
+            </div>
+        </div>
+
+       
+        <br />
+
+        <button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-menu-right pull-right"></span>Submit</button>
+    </div>
+</form>

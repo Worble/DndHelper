@@ -3,7 +3,7 @@
     <h1>Add Character</h1>
 </div>
 <div class="row">
-    <p>Choose an existing character or <a asp-action="Create" asp-controller="Character" asp-route-returnurl="@Url.Action("AddCharacter", "Game", new { id = Model.GameID })">create a new character.</a></p>
+    <p>Choose an existing character or <a asp-action="Create" asp-controller="Character" asp-route-gameID="@Model.GameID">create a new character.</a></p>
 </div>
 
     <form method="post">
@@ -34,7 +34,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @Html.EditorFor(e => e.Characters, new { returnUrl = Url.Action("AddCharacter", "Game", new { id = Model.GameID }) })
+                    @Html.EditorFor(e => e.Characters, new { GameID = Model.GameID })
                 </tbody>
             </table>
             <button type="submit" class="btn btn-primary">Add characters to game</button>

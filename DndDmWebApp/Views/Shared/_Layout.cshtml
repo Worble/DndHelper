@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-grid.css" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-reboot.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    @RenderSection("head", required: false)
 </head>
 <body>
     <header>
@@ -17,7 +18,9 @@
                 <menulink class="nav-item" action-name="Index" controller-name="Character" menu-text="Characters"></menulink>
                 <menulink class="nav-item" action-name="Index" controller-name="Race" menu-text="Races"></menulink>
                 <menulink class="nav-item" action-name="Index" controller-name="Class" menu-text="Classes"></menulink>
-                <menulink class="nav-item" action-name="Index" controller-name="Spells" menu-text="Spells"></menulink>
+                <menulink class="nav-item" action-name="Index" controller-name="Spell" menu-text="Spells"></menulink>
+                <menulink class="nav-item" action-name="Index" controller-name="BaseStat" menu-text="Stats"></menulink>
+                <menulink class="nav-item" action-name="Index" controller-name="Dice" menu-text="Dice Roller"></menulink>    
                 <menulink class="nav-item" action-name="Logout" controller-name="User" menu-text="Logout"></menulink>
             </nav>
             <hr />
@@ -27,7 +30,6 @@
         @RenderBody()
     </div>
     <script src="~/lib/jquery/jquery-3.2.1.js"></script>
-    <script src="~/lib/turbolinks/turbolinks.js"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

@@ -9,12 +9,12 @@ namespace DndDmWebApp.ViewModels.CharacterViewModels
     public class CharacterEditViewModel
     {
         /// <summary>
-        /// Gets or sets the redirect.
+        /// Gets or sets the game identifier.
         /// </summary>
         /// <value>
-        /// The redirect.
+        /// The game identifier.
         /// </value>
-        public string ReturnUrl { get; set; }
+        public int? GameID { get; set; }
 
         /// <summary>
         /// Gets or sets the character model.

@@ -31,5 +31,11 @@ namespace DndDmHelperData.Repositories.Interfaces
         /// <param name="gameID">The game identifier.</param>
         /// <returns></returns>
         GameDTO GetGameDetails(int gameID);
+
+        /// <summary>
+        /// Deletes the specified game.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        void Delete(int id);
     }
 }

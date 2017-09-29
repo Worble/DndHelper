@@ -1,26 +1,51 @@
 ﻿@model DndDmWebApp.ViewModels.GameViewModels.GameCharacterDetailViewModel
 
-<label asp-for="Character.Name" class="txt-md-bd form-label"></label>:
-@Html.DisplayFor(m => m.Character.Name)
-<br />
-<label asp-for="Character.Level" class="txt-md-bd form-label"></label>:
-@Html.DisplayFor(m => m.Character.Name)
+<div class="row">
+    <div class="col-xs-12 col-sm-6">
+        <label asp-for="Character.Name" class="txt-md-bd"></label>:
+        @Html.DisplayFor(m => m.Character.Name)
+    </div>
+    <div class="col-xs-12 col-sm-6">
+        <label asp-for="Character.Level" class="txt-md-bd form-label"></label>:
+        @Html.DisplayFor(m => m.Character.Level)
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12 col-sm-6">
+        <label asp-for="Character.Class" class="txt-md-bd form-label"></label>:
+        @Html.DisplayFor(m => m.Character.Class.Name)
+    </div>
+    <div class="col-xs-12 col-sm-6">
+        <label asp-for="Character.Race" class="txt-md-bd form-label"></label>:
+        @Html.DisplayFor(m => m.Character.Race.Name)
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12 col-sm-6">
+        <label asp-for="Character.Description" class="txt-md-bd form-label"></label>:
+        @Html.DisplayFor(m => m.Character.Description)
+    </div>
+</div>
+@{
+    var counter = 0;
+    var total = Model.Character.BaseStats.Count();
+}
+<label asp-for="Character.BaseStats" class="txt-md-bd form-label"></label>:
 
-<br />
-<label asp-for="Character.Description" class="txt-md-bd form-label"></label>:
-@Html.DisplayFor(m => m.Character.Description)
-<br />
-
-<label asp-for="Character.Race" class="txt-md-bd form-label"></label>:
-@Html.DisplayFor(m => m.Character.Race.Name)
-<br />
-<label asp-for="Character.Class" class="txt-md-bd form-label"></label>:
-@Html.DisplayFor(m => m.Character.Class.Name)
-<br />
-<label asp-for="Character.BaseStats" class="txt-md-bd form-label"></label>
 @foreach (var item in Model.Character.BaseStats)
 {
-    <div>
+    if (counter % 2 == 0)
+    {
+        @:<div class="row">
+    }
+    <div class="col-xs-12 col-md-6">
         @item.Name: @item.Value
     </div>
+    if (counter % 2 != 0 || (counter + 1) == total)
+    {
+        @:</div>
+    }
+    counter++;
 }
+<hr />
+<a asp-action="Detail" asp-controller="Game" asp-route-id="@Model.GameID" class="btn btn-primary">Back to game</a>

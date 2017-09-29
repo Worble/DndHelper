@@ -9,19 +9,19 @@
     <table class="table">
         <thead>
             <tr>
-                <td>
+                <td class="table-no-wrap">
                     <label asp-for="Characters.FirstOrDefault().Name"></label>
                 </td>
-                <td>
+                <td class="table-no-wrap">
                     <label asp-for="Characters.FirstOrDefault().Level"></label>
                 </td>
                 <td>
                     <label asp-for="Characters.FirstOrDefault().Description"></label>
                 </td>
-                <td>
+                <td class="table-no-wrap">
                     <label asp-for="Characters.FirstOrDefault().Race"></label>
                 </td>
-                <td>
+                <td class="table-no-wrap">
                     <label asp-for="Characters.FirstOrDefault().Class"></label>
                 </td>
                 <td></td>
@@ -31,22 +31,22 @@
             @foreach (var item in Model.Characters)
             {
                 <tr>
-                    <td>
+                    <td class="table-no-wrap">
                         @item.Name
                     </td>
-                    <td>
+                    <td class="table-no-wrap">
                         @item.Level
                     </td>
                     <td>
                         @item.Description
                     </td>
-                    <td>
+                    <td class="table-no-wrap">
                         @item.Race.Name
                     </td>
-                    <td>
+                    <td class="table-no-wrap">
                         @item.Class.Name
                     </td>
-                    <td>
+                    <td class="table-no-wrap">
                         <a asp-action="Edit" asp-controller="Character" asp-route-id="@item.ID">Edit</a>
                         &nbsp;|&nbsp;
                         <a id="delete" data-id="@item.ID" onclick="return js_enabled(this)" asp-action="Delete" asp-controller="Character" asp-route-id="@item.ID">Delete</a>
@@ -75,6 +75,7 @@
                         console.log(xhr.statusText);
                         console.log(textStatus);
                         console.log(error);
+                        alert("Error - see console for details");
                     }
                 });
             };

@@ -1,0 +1,44 @@
+﻿@model DndDmWebApp.ViewModels.NoteViewModels.NoteIndexViewModel
+<div class="row">
+    <h1>Notes</h1>
+</div>
+<div class="row">
+    <p>View an existing note or <a asp-action="Create" asp-controller="Note" asp-route-gameid="@Model.GameID">create a new note.</a></p>
+</div>
+<div class="row">
+    <table class="table">
+        <thead>
+            <tr>
+                <td class="table-no-wrap">
+                    <label asp-for="Notes.FirstOrDefault().NoteType.Name"></label>
+                </td>
+                <td class="table-no-wrap">
+                    <label asp-for="Notes.FirstOrDefault().Name"></label>
+                </td>
+                <td>
+                    <label asp-for="Notes.FirstOrDefault().Content"></label>
+                </td>
+                <td></td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Notes)
+            {
+                <tr>
+                    <td class="table-no-wrap">
+                        @item.NoteType.Name
+                    </td>
+                    <td class="table-no-wrap">
+                        @item.Name
+                    </td>
+                    <td>
+                        @item.Content
+                    </td>
+                    <td class="table-no-wrap">
+                        <a asp-action="Edit" asp-controller="Note" asp-route-id="@item.ID">Edit</a> | <a asp-action="Delete" , asp-controller="Note" asp-route-id="@item.ID">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

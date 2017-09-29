@@ -20,8 +20,8 @@
         <input type="checkbox" asp-for="AddToGame" class="form-control" />
     </td>
     <td>
-        <a asp-action="Edit" asp-controller="Character" asp-route-id="@Model.ID" asp-route-returnurl="@ViewData["ReturnUrl"]">Edit</a> 
+        <a asp-action="Edit" asp-controller="Character" asp-route-id="@Model.ID" asp-route-gameid="@ViewData["GameID"]">Edit</a> 
         &nbsp;|&nbsp;
-        <a data-id="@Model.ID" onclick="return js_enabled(this)" asp-action="Delete" asp-controller="Character" asp-route-id="@Model.ID" asp-route-returnurl="@ViewData["ReturnUrl"]">Delete</a>
+        <a data-id="@Model.ID" onclick="return js_enabled(this)" asp-action="Delete" asp-controller="Character" asp-route-id="@Model.ID" asp-route-gameid="@ViewData["GameID"]">Delete</a>
     </td>
 </tr>

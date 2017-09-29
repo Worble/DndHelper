@@ -68,6 +68,30 @@ namespace DndDmHelperData.UnitOfWork.Interface
         IBaseStatRepository BaseStatRepository { get; }
 
         /// <summary>
+        /// Gets the note repository.
+        /// </summary>
+        /// <value>
+        /// The note repository.
+        /// </value>
+        INoteRepository NoteRepository { get; }
+
+        /// <summary>
+        /// Gets the note type repository.
+        /// </summary>
+        /// <value>
+        /// The note type repository.
+        /// </value>
+        INoteTypeRepository NoteTypeRepository { get; }
+
+        /// <summary>
+        /// Gets the skill repository.
+        /// </summary>
+        /// <value>
+        /// The skill repository.
+        /// </value>
+        ISkillRepository SkillRepository { get; }
+
+        /// <summary>
         /// Save all changes to the database context
         /// </summary>
         void Save();

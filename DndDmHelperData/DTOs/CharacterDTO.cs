@@ -84,7 +84,7 @@ namespace DndDmHelperData.DTOs
         public int GameID { get; set; }
         #endregion
 
-        #region data access
+        #region methods
 
         /// <summary>
         /// Generates the template character DTO from the character entity.

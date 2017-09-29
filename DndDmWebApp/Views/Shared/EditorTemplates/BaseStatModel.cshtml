@@ -1,30 +1,20 @@
 ﻿@model DndDmWebApp.ViewModels.Models.BaseStatModel
 @using System.Text.RegularExpressions
 @{ 
-    //int index = (int)ViewData["Index"];
     //see https://stackoverflow.com/a/32119547 for what this is doing
     var index = Convert.ToInt32(Regex.Matches(
          ViewData.TemplateInfo.HtmlFieldPrefix,
          @"\[([0-9]+)?\]")[0].Groups[1].ToString());
 
-    int total = (int)ViewData["TotalCount"];
-
 }
-
-@if (index % 2 == 0)
-{
-    @:<div class="row">
-}
-          <div class="col-sm-6 col-md-3">
-              <select asp-for="ID" asp-items="@(new SelectList((IEnumerable<DndDmWebApp.ViewModels.Models.BaseStatModel>)ViewData["AllBaseStats"], "ID", "Name"))" class="form-control"></select>
-              <button type="submit" name="delete" value="@index">Delete</button>
-              @*<a href="#">Delete</a>*@
-          </div>
-          <div class="col-sm-6 col-md-3">
-              <input type="number" asp-for="Value" class="form-control" />
-          </div>
-
-@if (index % 2 != 0 || (index + 1) == total)
-{
-    @:</div>
-}
+<div>
+    <div>
+        <select asp-for="ID" asp-items="@(new SelectList((IEnumerable<DndDmWebApp.ViewModels.Models.BaseStatModel>)ViewData["AllBaseStats"], "ID", "Name"))" class="form-control"></select>
+    </div>
+    <div>
+        <input type="number" asp-for="Value" class="form-control" />
+    </div>
+    <div>
+        <button type="submit" name="deletestat" value="@index" class="pull-right btn btn-danger small-bold-text">Delete</button>
+    </div>
+</div>

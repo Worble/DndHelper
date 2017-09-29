@@ -1,0 +1,32 @@
+﻿@model DndDmWebApp.ViewModels.DiceViewModels.DiceIndexViewModel
+@section head
+{ 
+<head>
+    <meta name="turbolinks-cache-control" content="no-cache">
+</head>
+}
+<h1>Dice Roller</h1>
+<br />
+@Html.ValidationSummary()
+<form method="post">
+    <p>
+        Roll <input type="number" asp-for="DiceAmount" style="width:3em;" />
+        &nbsp;&nbsp;
+        d <input type="number" asp-for="DiceSize" style="width:3em;" />
+        &nbsp;&nbsp;
+        <select asp-for="Add" asp-items="@(new SelectList(new List<object>() { new { Name = "+", Value = true }, new { Name = "-", Value = false } }, "Value", "Name"))"></select>
+        &nbsp;&nbsp;
+        <input type="number" asp-for="PlusMinusAmount" style="width:3em;" />
+    </p>
+    <button>Roll</button>
+</form>
+@if (Model.Total != null)
+{
+    <p>
+        @for (int i = 1; i <= Model.Results.Count; i++)
+        {
+            <span>Roll @i: @Model.Results[i - 1]@(i == Model.Results.Count ? string.Empty : ",") </span>
+        }
+    </p>
+    <p>Final: @(Model.Add ? (Model.Total - Model.PlusMinusAmount).ToString() + "+" + Model.PlusMinusAmount.ToString() : (Model.Total + Model.PlusMinusAmount).ToString() + "-" + Model.PlusMinusAmount.ToString()) = @Model.Total</p>
+}

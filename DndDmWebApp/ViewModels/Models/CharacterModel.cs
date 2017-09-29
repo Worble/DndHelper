@@ -117,6 +117,14 @@ namespace DndDmWebApp.ViewModels.Models
         /// </value>
         public int GameID { get; set; }
 
+        /// <summary>
+        /// Gets or sets the skills.
+        /// </summary>
+        /// <value>
+        /// The skills.
+        /// </value>
+        public IEnumerable<SkillModel> Skills { get; set; }
+
         #endregion
 
         #region methods

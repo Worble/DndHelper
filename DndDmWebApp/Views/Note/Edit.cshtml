@@ -1,0 +1,29 @@
+﻿@model DndDmWebApp.ViewModels.NoteViewModels.NoteEditViewModel
+<div class="row">
+    <h1>Edit Note</h1>
+</div>
+<form method="post">
+    <div class="form-group-lg">
+        <input type="hidden" asp-for="Note.GameID" />
+        <input type="hidden" asp-for="Note.ID" />
+        <div class="row">
+            <div class="col-xs-12 col-md-6">
+                <label asp-for="Note.Name" class="txt-md-bd form-label"></label>
+                <input type="text" asp-for="Note.Name" class="form-control" />
+                <span asp-validation-for="Note.Name"></span>
+            </div>
+            <div class="col-xs-12 col-md-6">
+                <label asp-for="Note.NoteType" class="txt-md-bd form-label"></label>
+                <select asp-for="Note.NoteTypeID" asp-items="@(new SelectList(Model.NoteTypes, "ID", "Name"))" class="form-control"></select>
+                <span asp-validation-for="Note.NoteTypeID"></span>
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <label asp-for="Note.Content" class="txt-md-bd form-label"></label>
+            <textarea asp-for="Note.Content" class="form-control"></textarea>
+            <span asp-validation-for="Note.Content"></span>
+        </div>
+        <br />
+        <button name="submit" value="submit" class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-menu-right pull-right"></span>Edit</button>
+    </div>
+</form>

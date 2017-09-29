@@ -40,7 +40,7 @@ namespace DndDmWebApp.Controllers
         /// Displays the register page.
         /// </summary>
         /// <returns></returns>
-        [HttpGet("Register/"), AllowAnonymous]
+        [HttpGet("register/"), AllowAnonymous]
         public IActionResult Register()
         {
             return View(new UserRegisterViewModel());
@@ -51,7 +51,7 @@ namespace DndDmWebApp.Controllers
         /// </summary>
         /// <param name="model">The model.</param>
         /// <returns></returns>
-        [HttpPost("Register/"), ValidateAntiForgeryToken, AllowAnonymous]
+        [HttpPost("register/"), ValidateAntiForgeryToken, AllowAnonymous]
         public IActionResult Register(UserRegisterViewModel model)
         {
             if (!work.UserRepository.CheckUniqueEmail(model.EmailAddress))
@@ -72,7 +72,7 @@ namespace DndDmWebApp.Controllers
         /// </summary>
         /// <param name="returnUrl">The return URL.</param>
         /// <returns></returns>
-        [HttpGet("Login/"), AllowAnonymous]
+        [HttpGet("login/"), AllowAnonymous]
         public IActionResult Login(string returnUrl)
         {
             return View(new UserLoginViewModel() { ReturnUrl = returnUrl });
@@ -83,7 +83,7 @@ namespace DndDmWebApp.Controllers
         /// </summary>
         /// <param name="model">The model.</param>
         /// <returns></returns>
-        [HttpPost("Login/"), ValidateAntiForgeryToken, AllowAnonymous]
+        [HttpPost("login/"), ValidateAntiForgeryToken, AllowAnonymous]
         public IActionResult Login(UserLoginViewModel model)
         {
             if (!ModelState.IsValid)
@@ -121,7 +121,7 @@ namespace DndDmWebApp.Controllers
         /// Logouts this user.
         /// </summary>
         /// <returns></returns>
-        [HttpGet("Logout/")]
+        [HttpGet("logout/"), AllowAnonymous]
         public IActionResult Logout()
         {
             HttpContext.SignOutAsync();

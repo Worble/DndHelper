@@ -22,5 +22,30 @@ namespace DndDmHelperData.Repositories.Interfaces
         /// </summary>
         /// <param name="class">The class.</param>
         void Add(ClassDTO @class);
+
+        /// <summary>
+        /// Creates the specified class.
+        /// </summary>
+        /// <param name="classDTO">The class dto.</param>
+        void Create(ClassDTO classDTO);
+
+        /// <summary>
+        /// Gets the class dto.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
+        ClassDTO GetDTO(int id);
+
+        /// <summary>
+        /// Edits the specified class.
+        /// </summary>
+        /// <param name="classDTO">The class dto.</param>
+        void Update(ClassDTO classDTO);
+
+        /// <summary>
+        /// Deletes the specified class.
+        /// </summary>
+        /// <param name="id">The id.</param>
+        void Delete(int id);
     }
 }

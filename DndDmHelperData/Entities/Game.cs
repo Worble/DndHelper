@@ -55,6 +55,10 @@ namespace DndDmHelperData.Entities
         /// </value>
         public virtual ICollection<GameCharacter> Characters { get; set; }
 
+        #endregion
+
+        #region data access
+
         /// <summary>
         /// Gets the game.
         /// </summary>
@@ -71,9 +75,16 @@ namespace DndDmHelperData.Entities
                 .Select(e => GameDTO.GenerateDTOFromGame(e))
                 .FirstOrDefault(e => e.ID == gameID);
         }
-        #endregion
 
-        #region data access
+        /// <summary>
+        /// Deletes the specified game.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="id">The identifier.</param>
+        internal static void Delete(DndDmHelperContext context, int id)
+        {
+            context.Games.Remove(context.Games.Find(id));
+        }
 
         /// <summary>
         /// Creates the specified game.

@@ -98,6 +98,11 @@ namespace DndDmHelperData.DTOs
                 LastEdited = baseStat.EditedDate ?? baseStat.CreatedDate
             };
         }
+
+        internal static TemplateCharacterBaseStat GenerateEntityFromDTO(BaseStatDTO e)
+        {
+            throw new NotImplementedException();
+        }
         #endregion
     }
 }

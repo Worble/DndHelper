@@ -34,6 +34,12 @@ namespace DndDmHelperData.Context
 
             context.BaseStats.AddRange(BaseStatSeed.Seed(context));
             context.SaveChanges();
+
+            context.NoteTypes.AddRange(NoteTypeSeed.Seed(context));
+            context.SaveChanges();
+
+            context.Skills.AddRange(SkillSeed.Seed(context));
+            context.SaveChanges();
         }
     }
 }

@@ -1,0 +1,17 @@
+﻿@model DndDmWebApp.ViewModels.ClassViewModels.ClassDeleteViewModel
+<div class="row">
+    <h1>Delete Class</h1>
+</div>
+<div class="row">
+    <div class="col-xs-12 col-sm-6">
+        <label asp-for="Class.Name" class="txt-md-bd"></label>:
+        @Html.DisplayFor(m => m.Class.Name)
+    </div>
+</div>
+<form method="post">
+    <input type="hidden" asp-for="Class.ID" />
+    <button class="btn btn-danger" type="submit"><span class="glyphicon glyphicon-menu-right pull-right"></span>Delete</button>
+</form>
+<div class="alert-danger" style="border-radius: 10px;border: solid 2px;">
+    <p style="margin: 10px;padding: 10px;font-size: large;">This will delete this class forever! All characters that use this class will also be deleted!</p>
+</div>

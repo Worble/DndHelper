@@ -42,10 +42,14 @@ namespace DndDmWebApp.TagHelpers
             a.InnerHtml.Append(MenuText);
 
             var routeData = ViewContext.RouteData.Values;
-            var currentController = routeData["controller"];
+            var currentController = routeData["controller"].ToString();
+            if(currentController == "Note")
+            {
+                currentController = "Game";
+            }
             //var currentAction = routeData["action"];
 
-            if (String.Equals(ControllerName, currentController as string, StringComparison.OrdinalIgnoreCase))
+            if (String.Equals(ControllerName, currentController, StringComparison.OrdinalIgnoreCase))
             {
                 a.Attributes.Remove("class");
                 a.Attributes.Add("class", "nav-link active");

@@ -136,6 +136,77 @@ namespace DndDmHelperData.Migrations
                     b.ToTable("GameCharacterBaseStats");
                 });
 
+            modelBuilder.Entity("DndDmHelperData.Entities.GameCharacterSkill", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("CharacterID");
+
+                    b.Property<DateTime>("CreatedDate");
+
+                    b.Property<DateTime?>("EditedDate");
+
+                    b.Property<bool>("Proficient");
+
+                    b.Property<int>("SkillID");
+
+                    b.Property<int>("Value");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("CharacterID");
+
+                    b.HasIndex("SkillID");
+
+                    b.ToTable("GameCharacterSkills");
+                });
+
+            modelBuilder.Entity("DndDmHelperData.Entities.Note", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Content")
+                        .IsRequired();
+
+                    b.Property<DateTime>("CreatedDate");
+
+                    b.Property<DateTime?>("EditedDate");
+
+                    b.Property<int>("GameID");
+
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.Property<int>("NoteTypeID");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("GameID");
+
+                    b.HasIndex("NoteTypeID");
+
+                    b.ToTable("Notes");
+                });
+
+            modelBuilder.Entity("DndDmHelperData.Entities.NoteType", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreatedDate");
+
+                    b.Property<DateTime?>("EditedDate");
+
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.HasKey("ID");
+
+                    b.ToTable("NoteTypes");
+                });
+
             modelBuilder.Entity("DndDmHelperData.Entities.Race", b =>
                 {
                     b.Property<int>("ID")
@@ -151,6 +222,25 @@ namespace DndDmHelperData.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Races");
+                });
+
+            modelBuilder.Entity("DndDmHelperData.Entities.Skill", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreatedDate");
+
+                    b.Property<bool>("Default");
+
+                    b.Property<DateTime?>("EditedDate");
+
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Skills");
                 });
 
             modelBuilder.Entity("DndDmHelperData.Entities.TemplateCharacter", b =>
@@ -204,6 +294,32 @@ namespace DndDmHelperData.Migrations
                     b.HasIndex("CharacterID");
 
                     b.ToTable("TemplateCharacterBaseStats");
+                });
+
+            modelBuilder.Entity("DndDmHelperData.Entities.TemplateCharacterSkill", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("CharacterID");
+
+                    b.Property<DateTime>("CreatedDate");
+
+                    b.Property<DateTime?>("EditedDate");
+
+                    b.Property<bool>("Proficient");
+
+                    b.Property<int>("SkillID");
+
+                    b.Property<int>("Value");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("CharacterID");
+
+                    b.HasIndex("SkillID");
+
+                    b.ToTable("TemplateCharacterSkills");
                 });
 
             modelBuilder.Entity("DndDmHelperData.Entities.User", b =>
@@ -267,6 +383,32 @@ namespace DndDmHelperData.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("DndDmHelperData.Entities.GameCharacterSkill", b =>
+                {
+                    b.HasOne("DndDmHelperData.Entities.GameCharacter", "Character")
+                        .WithMany("Skills")
+                        .HasForeignKey("CharacterID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("DndDmHelperData.Entities.Skill", "Skill")
+                        .WithMany()
+                        .HasForeignKey("SkillID")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("DndDmHelperData.Entities.Note", b =>
+                {
+                    b.HasOne("DndDmHelperData.Entities.Game", "Game")
+                        .WithMany()
+                        .HasForeignKey("GameID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("DndDmHelperData.Entities.NoteType", "NoteType")
+                        .WithMany()
+                        .HasForeignKey("NoteTypeID")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("DndDmHelperData.Entities.TemplateCharacter", b =>
                 {
                     b.HasOne("DndDmHelperData.Entities.Class", "Class")
@@ -290,6 +432,19 @@ namespace DndDmHelperData.Migrations
                     b.HasOne("DndDmHelperData.Entities.TemplateCharacter", "Character")
                         .WithMany("BaseStats")
                         .HasForeignKey("CharacterID")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("DndDmHelperData.Entities.TemplateCharacterSkill", b =>
+                {
+                    b.HasOne("DndDmHelperData.Entities.TemplateCharacter", "Character")
+                        .WithMany("Skills")
+                        .HasForeignKey("CharacterID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("DndDmHelperData.Entities.Skill", "Skill")
+                        .WithMany()
+                        .HasForeignKey("SkillID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

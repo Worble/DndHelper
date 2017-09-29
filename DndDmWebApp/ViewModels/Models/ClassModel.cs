@@ -1,6 +1,7 @@
 ﻿using System;
 using DndDmHelperData.DTOs;
 using System.ComponentModel.DataAnnotations;
+using DndDmWebApp.ViewModels.ClassViewModels;
 
 namespace DndDmWebApp.ViewModels.Models
 {
@@ -34,7 +35,7 @@ namespace DndDmWebApp.ViewModels.Models
         /// The edited time.
         /// </value>
         [Display(Name="Last Edited")]
-        public DateTime LastedEdited { get; set; }
+        public DateTime LastEdited { get; set; }
         #endregion
 
         #region methods
@@ -50,7 +51,16 @@ namespace DndDmWebApp.ViewModels.Models
             {
                 ID = @class.ID,
                 Name = @class.Name,
-                LastedEdited = @class.LastEdited
+                LastEdited = @class.LastEdited
+            };
+        }
+
+        internal static ClassDTO GenerateClassDTOFromModel(ClassModel model)
+        {
+            return new ClassDTO()
+            {
+                ID = model.ID,
+                Name = model.Name
             };
         }
         #endregion

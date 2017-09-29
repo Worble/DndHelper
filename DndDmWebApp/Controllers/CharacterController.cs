@@ -48,17 +48,23 @@ namespace DndDmWebApp.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public IActionResult Create(string returnUrl)
+        public IActionResult Create(int? gameID)
         {
             var model = new CharacterCreateViewModel();
-            model.ReturnUrl = returnUrl;
-            model.Races = work.RaceRepository.GetAll().Select(e => RaceModel.GenerateRaceModelFromDTO(e)).ToList();
-            model.Classes = work.ClassRepository.GetAll().Select(e => ClassModel.GenerateClassModelFromDTO(e)).ToList();
-            model.BaseStats = work.BaseStatRepository.GetAll().Select(e => BaseStatModel.GeneralBaseStatModelFromDTO(e)).ToList();
+            model.GameID = gameID;
+            PopulateLists(model);
+
             model.CharacterModel = new CharacterModel()
             {
-                BaseStats = model.BaseStats.Where(e => e.Default)
+                BaseStats = model.BaseStats.Where(e => e.Default),
+                Skills = model.Skills.Where(e => e.Default)
             };
+
+            foreach (var baseStat in model.CharacterModel.BaseStats)
+            {
+                baseStat.Value = 10;
+            }
+
             return View(model);
         }
 
@@ -68,34 +74,61 @@ namespace DndDmWebApp.Controllers
         /// <param name="model">The model.</param>
         /// <returns></returns>
         [HttpPost, ValidateAntiForgeryToken]
-        public IActionResult Create(CharacterCreateViewModel model, string submit, string delete)
+        public IActionResult Create(CharacterCreateViewModel model, string submit, string deletestat, string deleteskill)
         {
-            //this is kind of an abomination (but it works)...
-            if (!string.IsNullOrWhiteSpace(delete))
+            //this is kind of an abomination (but it works)
+
+            if (!string.IsNullOrWhiteSpace(deletestat))
             {
                 var baseStats = model.CharacterModel.BaseStats.ToList();
-                baseStats.Remove(baseStats[int.Parse(delete)]);
+                baseStats.Remove(baseStats[int.Parse(deletestat)]);
                 model.CharacterModel.BaseStats = baseStats;
-                model.Races = work.RaceRepository.GetAll().Select(e => RaceModel.GenerateRaceModelFromDTO(e)).ToList();
-                model.Classes = work.ClassRepository.GetAll().Select(e => ClassModel.GenerateClassModelFromDTO(e)).ToList();
-                model.BaseStats = work.BaseStatRepository.GetAll().Select(e => BaseStatModel.GeneralBaseStatModelFromDTO(e)).ToList();
+                model = PopulateLists(model);
+
                 foreach (var modelValue in ModelState.Values)
                 {
                     modelValue.Errors.Clear();
                 }
                 return View(model);
             }
+
+            else if (!string.IsNullOrWhiteSpace(deleteskill))
+            {
+                var skills = model.CharacterModel.Skills.ToList();
+                skills.Remove(skills[int.Parse(deleteskill)]);
+                model.CharacterModel.Skills = skills;
+                model = PopulateLists(model);
+
+
+                foreach (var modelValue in ModelState.Values)
+                {
+                    modelValue.Errors.Clear();
+                }
+                return View(model);
+            }
+
             else
             {
                 switch (submit)
                 {
-                    case "add":
+                    case "statadd":
                         var baseStats = model.CharacterModel.BaseStats.ToList();
                         baseStats.Add(new BaseStatModel());
                         model.CharacterModel.BaseStats = baseStats;
-                        model.Races = work.RaceRepository.GetAll().Select(e => RaceModel.GenerateRaceModelFromDTO(e)).ToList();
-                        model.Classes = work.ClassRepository.GetAll().Select(e => ClassModel.GenerateClassModelFromDTO(e)).ToList();
-                        model.BaseStats = work.BaseStatRepository.GetAll().Select(e => BaseStatModel.GeneralBaseStatModelFromDTO(e)).ToList();
+                        model = PopulateLists(model);
+
+                        foreach (var modelValue in ModelState.Values)
+                        {
+                            modelValue.Errors.Clear();
+                        }
+                        return View(model);
+
+                    case "skilladd":
+                        var skills = model.CharacterModel.Skills.ToList();
+                        skills.Add(new SkillModel());
+                        model.CharacterModel.Skills = skills;
+                        model = PopulateLists(model);
+
                         foreach (var modelValue in ModelState.Values)
                         {
                             modelValue.Errors.Clear();
@@ -105,28 +138,24 @@ namespace DndDmWebApp.Controllers
                     case "submit":
                         if (!ModelState.IsValid)
                         {
-                            model.Races = work.RaceRepository.GetAll().Select(e => RaceModel.GenerateRaceModelFromDTO(e)).ToList();
-                            model.Classes = work.ClassRepository.GetAll().Select(e => ClassModel.GenerateClassModelFromDTO(e)).ToList();
-                            model.BaseStats = work.BaseStatRepository.GetAll().Select(e => BaseStatModel.GeneralBaseStatModelFromDTO(e)).ToList();
+                            model = PopulateLists(model);
+
                             return View(model);
                         }
 
                         work.TemplateCharacterRepository.Add(CharacterModel.GenerateCharacterDTOFromModel(model.CharacterModel));
                         work.Save();
 
-                        string decodedUrl = string.Empty;
-                        if (!string.IsNullOrEmpty(model.ReturnUrl))
+                        if(model.GameID != null)
                         {
-                            decodedUrl = WebUtility.HtmlDecode(model.ReturnUrl);
-                            if (Url.IsLocalUrl(decodedUrl))
-                            {
-                                return this.Redirect(decodedUrl);
-                            }
+                            return RedirectToAction("AddCharacter", "Game", new { id = model.GameID });
                         }
                         return RedirectToAction("Index");
 
                     default:
-                        return NotFound();
+                        model = PopulateLists(model);
+
+                        return View(model);
                 }
             }
         }
@@ -138,10 +167,10 @@ namespace DndDmWebApp.Controllers
         /// <param name="returnUrl">The return URL.</param>
         /// <returns></returns>
         [HttpGet]
-        public IActionResult Edit(int id, string returnUrl)
+        public IActionResult Edit(int id, int? gameID)
         {
             var model = new CharacterEditViewModel();
-            model.ReturnUrl = returnUrl;
+            model.GameID = gameID;
             model.CharacterModel = CharacterModel.GenerateCharacterModelFromDTO(work.TemplateCharacterRepository.GetDTO(id));
             model.Classes = work.ClassRepository.GetAll().Select(e => ClassModel.GenerateClassModelFromDTO(e)).ToList();
             model.Races = work.RaceRepository.GetAll().Select(e => RaceModel.GenerateRaceModelFromDTO(e)).ToList();
@@ -170,23 +199,18 @@ namespace DndDmWebApp.Controllers
             work.TemplateCharacterRepository.Update(CharacterModel.GenerateCharacterDTOFromModel(model.CharacterModel));
             work.Save();
 
-            string decodedUrl = string.Empty;
-            if (!string.IsNullOrEmpty(model.ReturnUrl))
+            if (model.GameID != null)
             {
-                decodedUrl = WebUtility.HtmlDecode(model.ReturnUrl);
-                if (Url.IsLocalUrl(decodedUrl))
-                {
-                    return this.Redirect(decodedUrl);
-                }
+                return RedirectToAction("AddCharacter", "Game", new { id = model.GameID });
             }
             return RedirectToAction("Index");
         }
 
         [HttpGet]
-        public IActionResult Delete(int id, string returnUrl)
+        public IActionResult Delete(int id, int? gameID)
         {
             var model = new CharacterDeleteViewModel();
-            model.ReturnUrl = returnUrl;
+            model.GameID = gameID;
             model.CharacterModel = CharacterModel.GenerateCharacterModelFromDTO(work.TemplateCharacterRepository.GetDTO(id));
             return View(model);
         }
@@ -197,14 +221,9 @@ namespace DndDmWebApp.Controllers
             work.TemplateCharacterRepository.Delete(model.CharacterModel.ID);
             work.Save();
 
-            string decodedUrl = string.Empty;
-            if (!string.IsNullOrEmpty(model.ReturnUrl))
+            if (model.GameID != null)
             {
-                decodedUrl = WebUtility.HtmlDecode(model.ReturnUrl);
-                if (Url.IsLocalUrl(decodedUrl))
-                {
-                    return this.Redirect(decodedUrl);
-                }
+                return RedirectToAction("AddCharacter", "Game", new { id = model.GameID });
             }
             return RedirectToAction("Index");
         }
@@ -218,5 +237,15 @@ namespace DndDmWebApp.Controllers
             return Ok();
         }
         #endregion
+
+        private CharacterCreateViewModel PopulateLists(CharacterCreateViewModel model)
+        {
+            model.Races = work.RaceRepository.GetAll().Select(e => RaceModel.GenerateRaceModelFromDTO(e)).ToList();
+            model.Classes = work.ClassRepository.GetAll().Select(e => ClassModel.GenerateClassModelFromDTO(e)).ToList();
+            model.BaseStats = work.BaseStatRepository.GetAll().Select(e => BaseStatModel.GeneralBaseStatModelFromDTO(e)).ToList();
+            model.Skills = work.SkillRepository.GetAll().Select(e => SkillModel.GenerateSkillModelFromDTO(e));
+
+            return model;
+        }
     }
 }

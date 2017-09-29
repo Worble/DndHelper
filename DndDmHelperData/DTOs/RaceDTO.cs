@@ -45,7 +45,12 @@ namespace DndDmHelperData.DTOs
         /// <returns></returns>
         internal static RaceDTO CreateDTOFromRace(Race race)
         {
-            return new RaceDTO() { ID = race.ID, Name = race.Name, LastEdited = race.EditedDate ?? race.CreatedDate };
+            return new RaceDTO()
+            {
+                ID = race.ID,
+                Name = race.Name,
+                LastEdited = race.EditedDate ?? race.CreatedDate
+            };
         }
 
         #endregion

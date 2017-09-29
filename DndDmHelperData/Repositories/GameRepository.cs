@@ -41,6 +41,15 @@ namespace DndDmHelperData.Repositories
         }
 
         /// <summary>
+        /// Deletes the specified game.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        public void Delete(int id)
+        {
+            Game.Delete(context, id);
+        }
+
+        /// <summary>
         /// Gets all games for the specified user.
         /// </summary>
         /// <param name="userID">The user ID.</param>

@@ -34,7 +34,6 @@ namespace DndDmHelperData.Repositories
         /// Gets all the classes.
         /// </summary>
         /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
         public IEnumerable<ClassDTO> GetAll()
         {
             return Class.GetAll(context);
@@ -44,10 +43,46 @@ namespace DndDmHelperData.Repositories
         /// Adds the specified class.
         /// </summary>
         /// <param name="class">The class.</param>
-        /// <exception cref="System.NotImplementedException"></exception>
         public void Add(ClassDTO @class)
         {
             Class.Add(context, @class);
+        }
+
+        /// <summary>
+        /// Creates the specified class.
+        /// </summary>
+        /// <param name="classDTO">The class dto.</param>
+        public void Create(ClassDTO classDTO)
+        {
+            Class.Create(context, classDTO);
+        }
+
+        /// <summary>
+        /// Gets the class dto.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
+        public ClassDTO GetDTO(int id)
+        {
+            return Class.GetDTO(context, id);
+        }
+
+        /// <summary>
+        /// Edits the specified class.
+        /// </summary>
+        /// <param name="classDTO">The class dto.</param>
+        public void Update(ClassDTO classDTO)
+        {
+            Class.Update(context, classDTO);
+        }
+
+        /// <summary>
+        /// Deletes the specified class.
+        /// </summary>
+        /// <param name="id">The id.</param>
+        public void Delete(int id)
+        {
+            Class.Delete(context, id);
         }
 
         #endregion
