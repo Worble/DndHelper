@@ -7,14 +7,27 @@
          @"\[([0-9]+)?\]")[0].Groups[1].ToString());
 
 }
-<div>
+<div class="stats">
     <div>
         <select asp-for="ID" asp-items="@(new SelectList((IEnumerable<DndDmWebApp.ViewModels.Models.BaseStatModel>)ViewData["AllBaseStats"], "ID", "Name"))" class="form-control"></select>
     </div>
     <div>
         <input type="number" asp-for="Value" class="form-control" />
     </div>
-    <div>
+    
+    <div class="stat-delete">
         <button type="submit" name="deletestat" value="@index" class="pull-right btn btn-danger small-bold-text">Delete</button>
     </div>
 </div>
+
+<style>
+    .stats{
+        margin-top:2em;
+        display:grid;
+        grid-template-columns: 70% 30%
+    }
+    .stat-delete{
+        grid-column: 2;
+        grid-row: 2;
+    }
+</style>

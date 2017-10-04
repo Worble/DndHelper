@@ -128,7 +128,6 @@ namespace DndDmHelperData.Entities
             character.Level = characterDTO.Level;
             character.ClassID = characterDTO.Class.ID;
             character.RaceID = characterDTO.Race.ID;
-            character.BaseStats = BaseStatDTO.Generate
 
             context.Attach(character);
             context.Entry(character).State = EntityState.Modified;

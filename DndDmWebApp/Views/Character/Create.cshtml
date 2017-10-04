@@ -5,12 +5,12 @@
 <br />
 <form method="post" class="row">
     <div class="wrapper">
-        <div class="one">
+        <div class="stats-grid">
             <button name="submit" value="statadd" type="submit" class="float-right btn btn-success small-bold-text">Add Another</button>
             <label asp-for="CharacterModel.BaseStats" class="txt-md-bd"></label>
             @Html.EditorFor(m => m.CharacterModel.BaseStats, new { AllBaseStats = Model.BaseStats })
         </div>
-        <div class="two">
+        <div class="passive-perception-grid">
             <label class="txt-md-bd form-label">Passive Perception</label>
             <input type="number" class="form-control" />
         </div>
@@ -87,12 +87,12 @@
         grid-auto-rows: minmax(100px, auto);
     }
 
-    .one {
+    .stats-grid {
         grid-column: 1;
         grid-row: 2 / 5;
     }
 
-    .two {
+    .passive-perception-grid {
         grid-column: 1;
         grid-row: 5;
     }
@@ -149,4 +149,30 @@
         border:none!important;
         border:unset!important;
     }
+
+    @@media (max-width: 1199px) {
+        .wrapper {
+            grid-template-columns: 25% 35% 35%
+        }
+
+        .three {
+            grid-column: 1 / 4;
+        }
+
+        .eight {
+            grid-column: 1 / 2;
+            grid-row: 8 / 10;
+        }
+
+        .eleven {
+            grid-column: 2 / 4;
+            grid-row: 8 / 10;
+        }
+
+        .twelve {
+            grid-column: 3;
+            grid-row: 10;
+        }
+    }
+
 </style>

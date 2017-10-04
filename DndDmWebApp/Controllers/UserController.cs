@@ -109,7 +109,7 @@ namespace DndDmWebApp.Controllers
             if (!string.IsNullOrEmpty(model.ReturnUrl))
             {
                 decodedUrl = WebUtility.HtmlDecode(model.ReturnUrl);
-                if (Url.IsLocalUrl(decodedUrl))
+                if (Url.IsLocalUrl(decodedUrl) || decodedUrl != Url.Action("Logout", "User"))
                 {
                     return this.Redirect(decodedUrl);
                 }

@@ -28,3 +28,12 @@
     font-size: x-small;
     font-weight: bold;
 }
+
+input[type="number"] {
+    -moz-appearance: textfield;
+    margin: 0;
+}
+
+button{
+    cursor: pointer;
+}

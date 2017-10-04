@@ -71,6 +71,10 @@ namespace DndDmWebApp.Controllers
         [HttpGet]
         public IActionResult Detail(int id)
         {
+            if(id == 0)
+            {
+                return NotFound();
+            }
             var model = new GameDetailsViewModel()
             {
                 Game = GameModel.GenerateGameModelFromDTO(work.GameRepository.GetGameDetails(id))

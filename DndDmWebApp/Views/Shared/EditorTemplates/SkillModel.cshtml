@@ -18,17 +18,16 @@
         <select asp-for="ID" asp-items="@(new SelectList((IEnumerable<DndDmWebApp.ViewModels.Models.SkillModel>)ViewData["AllSkills"], "ID", "Name"))" class="form-control"></select>
     </div>
     <div class="skill-delete">
-        <button type="submit" name="deleteskill" value="@index" class="pull-right btn btn-danger small-bold-text">Delete</button>
+        <button type="submit" name="deleteskill" value="@index" class="pull-right btn btn-danger small-bold-text">X</button>
     </div>
 </div>
 
 <style>
     .skills {
         display: grid;
-        grid-template-columns: 10% 30% 60%;
+        grid-template-columns: 10% 15% 58% 17%;
     }
-    .skill-delete{
-        grid-column:3;
-        grid-row:2;
+    .skills > div > .form-control{
+        font-size:smaller;
     }
 </style>
